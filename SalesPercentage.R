@@ -9,6 +9,7 @@ library(ggplot2)
 library(dplyr)
 library(ggpubr)
 library(RColorBrewer)
+
 # Sales Percentage
 
 #Cars BAU
@@ -19,11 +20,15 @@ p1 <- ggplot(df_1Melted, aes(x = Year, y = value, fill = forcats::fct_rev(variab
   geom_area()+
   theme_bw()+ 
   scale_fill_manual(values = colorRampPalette(brewer.pal(8, "Dark2"))(colourCount))+
-  labs(title = "Cars BAU", y="Percentage Sales Shares (%)") + 
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  labs(title = "Cars BAU") + 
   guides(colour = guide_legend(nrow = 1))+
   theme( 
-    axis.title.x=element_blank(),axis.title.y = element_text(hjust=0.5, size = 9),
-    plot.title = element_text(hjust = 0.5, size=9), legend.position = "none", legend.title = element_blank())
+    axis.title.x=element_blank(),axis.title.y = element_blank(),
+    axis.text.y = element_text(size=13),
+    axis.text.x = element_text(size=13),
+    plot.title = element_text(hjust = 0.5, size=15), legend.position = "none", legend.title = element_blank(),
+    legend.text = element_text(size=13))
 
 #LDBAU
 df2 <- read.csv("MK_FromMarshall - SalesPercentageLDBAU.csv", header=TRUE)
@@ -33,13 +38,14 @@ p2 <- ggplot(df_2Melted, aes(x = Year, y = value, fill = forcats::fct_rev(variab
   geom_area()+
   theme_bw()+ 
   scale_fill_manual(values = colorRampPalette(brewer.pal(8, "Dark2"))(colourCount))+
-  labs(title = "Cars BAU", y="Percentage Sales Shares (%)") + 
+  scale_y_continuous(labels = function(x) paste0(x, "%"), position = "right") +
+  labs(title = "LD BAU") + 
   guides(colour = guide_legend(nrow = 1))+
   theme( 
     axis.title.y=element_blank(), axis.ticks.y = element_blank(),
-    axis.text.y = element_blank(),
-    axis.title.x=element_blank(),
-    plot.title = element_text(hjust = 0.5, size=9), legend.position = "none", legend.title = element_blank())
+    axis.text.y = element_text(size=15),
+    axis.title.x=element_blank(),axis.text.x = element_text(size=13),
+    plot.title = element_text(hjust = 0.5, size=15), legend.position = "none", legend.title = element_blank())
 
 #Cars ZEV
 df3 <- read.csv("MK_FromMarshall - SalesPercentageCarsZEV.csv", header=TRUE)
@@ -49,11 +55,13 @@ p3 <- ggplot(df_3Melted, aes(x = Year, y = value, fill = forcats::fct_rev(variab
   geom_area()+
   theme_bw()+ 
   scale_fill_manual(values = colorRampPalette(brewer.pal(8, "Dark2"))(colourCount))+
-  labs(title = "Cars ZEV", y="Percentage Sales Shares (%)") + 
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  labs(title = "Cars ZEV") + 
   guides(colour = guide_legend(nrow = 1))+
   theme( 
-    axis.title.x=element_blank(),axis.title.y = element_text(hjust=0.5, size = 9),
-    plot.title = element_text(hjust = 0.5, size=9), legend.position = "none", legend.title = element_blank())
+    axis.title.x=element_blank(),axis.title.y = element_blank(),
+    axis.text.y = element_text(size=13),axis.text.x = element_text(size=13),
+    plot.title = element_text(hjust = 0.5, size=15), legend.position = "none", legend.title = element_blank())
 
 
 #LD ZEV
@@ -64,13 +72,15 @@ p4 <- ggplot(df_4Melted, aes(x = Year, y = value, fill = forcats::fct_rev(variab
   geom_area()+
   theme_bw()+ 
   scale_fill_manual(values = colorRampPalette(brewer.pal(8, "Dark2"))(colourCount))+
-  labs(title = "LD ZEV", y="Percentage Sales Shares (%)") + 
+  scale_y_continuous(labels = function(x) paste0(x, "%"), position = "right") +
+  labs(title = "LD ZEV") + 
   guides(colour = guide_legend(nrow = 1))+
   theme( 
     axis.title.y=element_blank(), axis.ticks.y = element_blank(),
-    axis.text.y = element_blank(),
+    axis.text.x = element_text(size=13),
+    axis.text.y = element_text(size=15),
     axis.title.x=element_blank(),
-    plot.title = element_text(hjust = 0.5, size=9), legend.position = "none", legend.title = element_blank())
+    plot.title = element_text(hjust = 0.5, size=15), legend.position = "none", legend.title = element_blank())
 
 
 #Cars ZEV+B
@@ -80,30 +90,37 @@ colourCount = length(unique(df_5Melted$variable))
 p5 <- ggplot(df_5Melted, aes(x = Year, y = value, fill = forcats::fct_rev(variable))) + 
   geom_area()+
   theme_bw()+ 
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
   scale_fill_manual(values = colorRampPalette(brewer.pal(8, "Dark2"))(colourCount))+
-  labs(title = "Cars ZEV+B", y="Percentage Sales Shares (%)") + 
+  labs(title = "Cars ZEV+B") + 
   guides(colour = guide_legend(nrow = 1))+
   theme( 
-    axis.title.x=element_blank(),axis.title.y = element_text(hjust=0.5, size = 9),
-    plot.title = element_text(hjust = 0.5, size=9), legend.position = "none", legend.title = element_blank())
+    axis.title.x=element_blank(),axis.title.y = element_blank(),
+    axis.text.y = element_text(size=13),axis.text.x = element_text(size=13),
+    plot.title = element_text(hjust = 0.5, size=15), legend.position = "none", legend.title = element_blank())
 
 
 #LD ZEV
+
 df6 <- read.csv("MK_FromMarshall - SalesPercentageLDZEV+B.csv", header=TRUE)
 df_6Melted <- melt(df6, id.var = "Year")
 colourCount = length(unique(df_6Melted$variable))
 p6 <- ggplot(df_6Melted, aes(x = Year, y = value, fill = forcats::fct_rev(variable))) + 
   geom_area()+
   theme_bw()+ 
+  scale_y_continuous(labels = function(x) paste0(x, "%"), position = "right") +
   scale_fill_manual(values = colorRampPalette(brewer.pal(8, "Dark2"))(colourCount))+
-  labs(title = "LD ZEV", y="Percentage Sales Shares (%)") + 
+  labs(title = "LD ZEV") + 
+  #geom_text(aes(label=variable),position = position_stack(vjust = 0.5))+
   guides(colour = guide_legend(nrow = 1))+
   theme( 
     axis.title.y=element_blank(), axis.ticks.y = element_blank(),
-    axis.text.y = element_blank(),
+    axis.text.y = element_text(size=15),
+   axis.text.x = element_text(size=13),
     axis.title.x=element_blank(),
-    plot.title = element_text(hjust = 0.5, size=9), legend.position = "none", legend.title = element_blank())
+    plot.title = element_text(hjust = 0.5, size=15), legend.position = "none", legend.title = element_blank())
 
-p_final <- ggarrange(p1, p2, p3, p4,p5,p6, ncol=2, nrow=3, common.legend = TRUE, legend="bottom",
-                     heights = c(1,1,1.1), widths = c(1.1,1))
-annotate_figure(p_final, top="Sales Percentage")
+p_final <- ggarrange(p1, p2, p3, p4,p5,p6, ncol=2, nrow=3, common.legend = TRUE, legend="right",
+                     heights = c(1,1,1), widths = c(1.1,1))
+annotate_figure(p_final,top = text_grob("Sales Percentage", hjust = 1, size = 20), 
+                left=text_grob("Percentage Sales Share (%)", size=15,rot = 90))
