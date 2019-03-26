@@ -6,7 +6,7 @@ library(RColorBrewer)
 #set working directory
 setwd("/Users/mkumari/Downloads")
 
-#function to stacked bar charts.
+#function to stacked area charts.
 stacked_bar <- function(file, left){
   #left=TRUE means y-axis shows up on left side. left=FALSE means y-axis shows up on right side
   df_Melted <- melt(file, id.var = "Year")
